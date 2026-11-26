@@ -1,0 +1,326 @@
+{
+  "name": "zovo-tfstate-viewer",
+  "displayName": "Terraform State & Plan Viewer",
+  "description": "Open Terraform state (.tfstate, .tfstate.backup) and plan (.tfplan.json) files in VS Code: resources, outputs, dependencies and secret masking, locally.",
+  "version": "0.1.0",
+  "publisher": "zovo",
+  "license": "MIT",
+  "icon": "icon.png",
+  "galleryBanner": {
+    "color": "#1E1B2E",
+    "theme": "dark"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/theluckystrike/tfstate-viewer-vscode"
+  },
+  "bugs": {
+    "url": "https://github.com/theluckystrike/tfstate-viewer-vscode/issues"
+  },
+  "homepage": "https://github.com/theluckystrike/tfstate-viewer-vscode#readme",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Other",
+    "Visualization"
+  ],
+  "keywords": [
+    "terraform",
+    "tfstate",
+    "tfplan",
+    "iac",
+    "devops",
+    "cloud",
+    "aws",
+    "infrastructure"
+  ],
+  "main": "./src/extension.js",
+  "activationEvents": [
+    "onUri",
+    "onCustomEditor:zovo-tfstate.viewer"
+  ],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": true
+    },
+    "virtualWorkspaces": true
+  },
+  "contributes": {
+    "customEditors": [
+      {
+        "viewType": "zovo-tfstate.viewer",
+        "displayName": "Terraform State & Plan Viewer",
+        "selector": [
+          {
+            "filenamePattern": "*.{tfstate,TFSTATE}"
+          },
+          {
+            "filenamePattern": "*.tfstate.backup"
+          },
+          {
+            "filenamePattern": "*.tfplan.json"
+          }
+        ],
+        "priority": "default"
+      }
+    ],
+    "commands": [
+      {
+        "command": "zovoTfstate.openWith",
+        "title": "Open in Terraform State & Plan Viewer",
+        "category": "Terraform State Viewer",
+        "icon": "$(table)"
+      },
+      {
+        "command": "zovoTfstate.openSample",
+        "title": "Open the Sample Terraform State File",
+        "category": "Terraform State Viewer"
+      },
+      {
+        "command": "zovoTfstate.openWalkthrough",
+        "title": "Get Started",
+        "category": "Terraform State Viewer"
+      },
+      {
+        "command": "zovoTfstate.moreViewers",
+        "title": "More free tools by Zovo",
+        "category": "Terraform State Viewer"
+      },
+      {
+        "command": "zovoTfstate.supportDeveloper",
+        "title": "Support the developer",
+        "category": "Terraform State Viewer"
+      },
+      {
+        "command": "zovoTfstate.diffStates",
+        "title": "Compare two Terraform state or plan files (Pro, 1 free try)",
+        "category": "Terraform State Viewer"
+      },
+      {
+        "command": "zovoTfstate.auditSecrets",
+        "title": "Audit Terraform state secrets and public exposure (Pro, 1 free try)",
+        "category": "Terraform State Viewer"
+      },
+      {
+        "command": "zovoTfstate.exportInventory",
+        "title": "Export Terraform inventory to CSV, JSON and Mermaid (Pro, 1 free try)",
+        "category": "Terraform State Viewer"
+      },
+      {
+        "command": "zovoTfstate.zovoPro.diffStates",
+        "title": "Zovo Pro: Compare two Terraform state or plan files"
+      },
+      {
+        "command": "zovoTfstate.zovoPro.auditSecrets",
+        "title": "Zovo Pro: Audit Terraform state secrets and public exposure"
+      },
+      {
+        "command": "zovoTfstate.zovoPro.exportInventory",
+        "title": "Zovo Pro: Export Terraform inventory to CSV, JSON and Mermaid"
+      },
+      {
+        "command": "zovoTfstate.zovoTitle.diffStates",
+        "title": "Zovo Pro: Compare two Terraform state or plan files"
+      },
+      {
+        "command": "zovoTfstate.zovoTitle.auditSecrets",
+        "title": "Zovo Pro: Audit Terraform state secrets and public exposure"
+      },
+      {
+        "command": "zovoTfstate.zovoTitle.exportInventory",
+        "title": "Zovo Pro: Export Terraform inventory to CSV, JSON and Mermaid"
+      },
+      {
+        "command": "zovoTfstate.getPro",
+        "title": "Get Zovo Pro (USD 19 once, all Zovo extensions)",
+        "category": "Zovo Pro"
+      },
+      {
+        "command": "zovoTfstate.payWithPayPal",
+        "title": "Pay for Zovo Pro with PayPal (USD 19, team of 5 USD 59)",
+        "category": "Zovo Pro"
+      },
+      {
+        "command": "zovoTfstate.unlockWithSponsors",
+        "title": "I already paid: activate with GitHub Sponsors",
+        "category": "Zovo Pro"
+      },
+      {
+        "command": "zovoTfstate.enterLicenseKey",
+        "title": "Enter Zovo Pro license key",
+        "category": "Zovo Pro"
+      },
+      {
+        "command": "zovoTfstate.removeLicense",
+        "title": "Remove Zovo Pro from this editor",
+        "category": "Zovo Pro"
+      },
+      {
+        "command": "zovoTfstate.payByCard",
+        "title": "Pay for Zovo Pro by card (USD 19)",
+        "category": "Zovo Pro"
+      },
+      {
+        "command": "zovoTfstate.enterKey",
+        "title": "Enter a key",
+        "category": "Zovo Pro"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "zovoTfstate.zovoTitle.diffStates",
+          "when": "activeCustomEditorId == 'zovo-tfstate.viewer' && config.zovoTfstate.showProTools",
+          "group": "zovoPro@1"
+        },
+        {
+          "command": "zovoTfstate.zovoTitle.auditSecrets",
+          "when": "activeCustomEditorId == 'zovo-tfstate.viewer' && config.zovoTfstate.showProTools",
+          "group": "zovoPro@2"
+        },
+        {
+          "command": "zovoTfstate.zovoTitle.exportInventory",
+          "when": "activeCustomEditorId == 'zovo-tfstate.viewer' && config.zovoTfstate.showProTools",
+          "group": "zovoPro@3"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "zovoTfstate.openWith",
+          "when": "resourceFilename =~ /\\.(tfstate|tfstate\\.backup|tfplan\\.json)$/i && !explorerResourceIsFolder",
+          "group": "navigation@9"
+        },
+        {
+          "command": "zovoTfstate.zovoPro.diffStates",
+          "when": "resourceFilename =~ /\\.(tfstate|tfstate\\.backup|tfplan\\.json)$/i && !explorerResourceIsFolder && config.zovoTfstate.showProTools",
+          "group": "zovoPro@1"
+        },
+        {
+          "command": "zovoTfstate.zovoPro.auditSecrets",
+          "when": "resourceFilename =~ /\\.(tfstate|tfstate\\.backup|tfplan\\.json)$/i && !explorerResourceIsFolder && config.zovoTfstate.showProTools",
+          "group": "zovoPro@2"
+        },
+        {
+          "command": "zovoTfstate.zovoPro.exportInventory",
+          "when": "resourceFilename =~ /\\.(tfstate|tfstate\\.backup|tfplan\\.json)$/i && !explorerResourceIsFolder && config.zovoTfstate.showProTools",
+          "group": "zovoPro@3"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "zovoTfstate.diffStates",
+          "when": "config.zovoTfstate.showProTools"
+        },
+        {
+          "command": "zovoTfstate.auditSecrets",
+          "when": "config.zovoTfstate.showProTools"
+        },
+        {
+          "command": "zovoTfstate.exportInventory",
+          "when": "config.zovoTfstate.showProTools"
+        },
+        {
+          "command": "zovoTfstate.zovoPro.diffStates",
+          "when": "false"
+        },
+        {
+          "command": "zovoTfstate.zovoPro.auditSecrets",
+          "when": "false"
+        },
+        {
+          "command": "zovoTfstate.zovoPro.exportInventory",
+          "when": "false"
+        },
+        {
+          "command": "zovoTfstate.zovoTitle.diffStates",
+          "when": "false"
+        },
+        {
+          "command": "zovoTfstate.zovoTitle.auditSecrets",
+          "when": "false"
+        },
+        {
+          "command": "zovoTfstate.zovoTitle.exportInventory",
+          "when": "false"
+        },
+        {
+          "command": "zovoTfstate.openWith",
+          "when": "false"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Terraform State & Plan Viewer",
+      "properties": {
+        "zovoTfstate.maxFileMB": {
+          "type": "number",
+          "default": 50,
+          "minimum": 1,
+          "maximum": 512,
+          "description": "Files up to this size open in the Terraform State & Plan Viewer."
+        },
+        "zovoTfstate.pageSize": {
+          "type": "number",
+          "default": 100,
+          "minimum": 20,
+          "maximum": 500,
+          "description": "Rows shown on one page of the resource inventory table."
+        },
+        "zovoTfstate.maskSensitiveByDefault": {
+          "type": "boolean",
+          "default": true,
+          "description": "Mask sensitive attribute values and sensitive outputs when a file opens."
+        },
+        "zovoTfstate.showProTools": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show the Zovo Pro tools (state diff, secret audit and inventory export) in the Command Palette, the Explorer menu, the editor title menu and the viewer toolbar. Everything free stays visible."
+        },
+        "zovoTfstate.askForRating": {
+          "type": "boolean",
+          "default": true,
+          "description": "Ask once for a Marketplace rating after 2 Terraform state or plan files open without an error. Choosing No thanks never asks again. Nothing is sent anywhere."
+        },
+        "zovoTfstate.showSupportLinks": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show the small Rate, More free tools and Zovo Pro links at the bottom of the viewer. Nothing is sent anywhere."
+        },
+        "zovo.tfstate.trial.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show the 7-day Zovo Pro trial button in the Pro panel."
+        }
+      }
+    },
+    "walkthroughs": [
+      {
+        "id": "zovoTfstate.start",
+        "title": "Get started with the Terraform State & Plan Viewer",
+        "description": "Read Terraform state (.tfstate, .tfstate.backup) and plan (.tfplan.json) files, resource tables, outputs, dependencies and health checks in VS Code, locally.",
+        "steps": [
+          {
+            "id": "open",
+            "title": "Open a Terraform state or plan file",
+            "description": "Click any .tfstate, .tfstate.backup or .tfplan.json file in the Explorer to inspect resources, outputs, dependencies and sensitive values.\n[Open the sample Terraform state file](command:zovoTfstate.openSample)",
+            "media": {
+              "image": "images/screenshot.png",
+              "altText": "A Terraform state file open in the viewer with state metadata chips, resource inventory table, attribute inspector with secret masking and health findings."
+            },
+            "completionEvents": [
+              "onCommand:zovoTfstate.openSample"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "scripts": {
+    "test": "node scripts/test.js",
+    "package": "npx -y @vscode/vsce@3 package --no-dependencies"
+  },
+  "sponsor": {
+    "url": "https://github.com/sponsors/theluckystrike/sponsorships?tier_id=679878"
+  }
+}
